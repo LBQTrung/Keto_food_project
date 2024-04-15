@@ -1,18 +1,24 @@
-import express from "express";
-import foodRouter from "./routes/foods.routes.js";
+import express from 'express'
+import foodRouter from './routes/foods.routes.js'
+import { defaultErrorHandler } from './middlewares/error.middlewares.js'
+import { initUploadsFolder } from './utils/files.js'
 
-const app = express();
+const app = express()
 
-const PORT = 3000;
+const PORT = 3000
 
-app.get("/", (req, res) => {
+initUploadsFolder()
+
+app.get('/', (req, res) => {
   res.json({
-    message: "Hello cái lồn",
-  });
-});
+    message: 'Hello cái lồn'
+  })
+})
 
-app.use("/food", foodRouter);
+app.use('/food', foodRouter)
+
+app.use(defaultErrorHandler)
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on http://localhost:${PORT}`);
-});
+  console.log(`Example app listening on http://localhost:${PORT}`)
+})
