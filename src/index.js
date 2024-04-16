@@ -2,10 +2,12 @@ import express from 'express'
 import foodRouter from './routes/foods.routes.js'
 import { defaultErrorHandler } from './middlewares/error.middlewares.js'
 import { initUploadsFolder } from './utils/files.js'
+import bodyParser from 'body-parser'
 
 const app = express()
-
 const PORT = 3000
+
+app.use(bodyParser.json())
 
 initUploadsFolder()
 
