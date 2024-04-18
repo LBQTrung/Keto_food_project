@@ -1,5 +1,10 @@
 import { Router } from 'express'
-import { getFoodController, instructFoodController } from '../controllers/food.controllers.js'
+import {
+  getDetailsMealController,
+  getFoodController,
+  instructFoodController,
+  searchFoodController
+} from '../controllers/food.controllers.js'
 import { wrapRequestHandler } from '../utils/handlers.js'
 
 const foodRouter = Router()
@@ -16,8 +21,24 @@ foodRouter.post('/classify', wrapRequestHandler(getFoodController))
  * Description: Instructions for cooking the specified dish
  * Path: /instruct
  * Method: POST
- * Body: { name: string }
+ * Query: { name: string }
  */
 foodRouter.post('/instruct', wrapRequestHandler(instructFoodController))
+
+/**
+ * Description: Search the ingradients, instruction with text
+ * Path: /text-search
+ * Method: POST
+ * Query: { name: string }
+ */
+foodRouter.post('/text-search', wrapRequestHandler(searchFoodController))
+
+/**
+ * Description: Receive details information of a meal
+ * Path: /details
+ * Method: POST
+ * Query: { name: string }
+ */
+foodRouter.post('/details', wrapRequestHandler(getDetailsMealController))
 
 export default foodRouter
