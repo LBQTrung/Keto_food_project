@@ -3,9 +3,12 @@ import foodRouter from './routes/foods.routes.js'
 import { defaultErrorHandler } from './middlewares/error.middlewares.js'
 import { initUploadsFolder } from './utils/files.js'
 import bodyParser from 'body-parser'
+import mediaRouter from './routes/medias.routes.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -19,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/food', foodRouter)
+app.use('/media', mediaRouter)
 
 app.use(defaultErrorHandler)
 

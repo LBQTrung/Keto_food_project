@@ -10,11 +10,8 @@ import { getDetailsIngradients } from '../utils/handleAPIResponses.js'
 import HTTP_STATUS from '../constants/httpStatus.js'
 
 export const getFoodController = async (req, res) => {
-  // Upload file
-  const file = await handleUploadImage(req, res)
-
-  const newFilename = file.newFilename
-  const imagePath = path.resolve(UPLOAD_DIR, newFilename)
+  const { filename } = req.body
+  const imagePath = path.resolve(UPLOAD_DIR, filename)
 
   const classification = await foodClassificationModel.classifyImage(imagePath)
 

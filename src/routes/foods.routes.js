@@ -13,7 +13,7 @@ const foodRouter = Router()
  * Description: Classify food image
  * Path: /classify
  * Method: POST
- * Body: form-data {image: example.png}
+ * Body: {filename: string}
  */
 foodRouter.post('/classify', wrapRequestHandler(getFoodController))
 
