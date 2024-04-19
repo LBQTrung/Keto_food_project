@@ -41,7 +41,7 @@ export const searchFoodController = async (req, res) => {
   const foodName = req.query.name
 
   // Call MealDB API
-  const rawResponse = await axios.get(PublicAPI.SEARCH_BY_FOOD_NAME, {
+  const rawResponse = await axios.get(PublicAPI.SEARCH_FOOD_BY_NAME, {
     params: {
       s: foodName
     }
@@ -61,7 +61,8 @@ export const searchFoodController = async (req, res) => {
       area: meal.strArea,
       instructions: meal.strInstructions,
       ingredients: getDetailsIngradients(meal),
-      image_url: meal.strMealThumb
+      image_url: meal.strMealThumb,
+      meal_id: meal.idMeal
     }
   })
 
@@ -72,12 +73,12 @@ export const searchFoodController = async (req, res) => {
 }
 
 export const getDetailsMealController = async (req, res) => {
-  const foodName = req.query.name
+  const { id } = req.query
 
   // Call MealDB API
-  const rawResponse = await axios.get(PublicAPI.SEARCH_BY_FOOD_NAME, {
+  const rawResponse = await axios.get(PublicAPI.GET_DETAIL_FOOD_BY_ID, {
     params: {
-      s: foodName
+      i: id
     }
   })
 
@@ -95,7 +96,8 @@ export const getDetailsMealController = async (req, res) => {
       area: meal.strArea,
       instructions: meal.strInstructions,
       ingredients: getDetailsIngradients(meal),
-      image_url: meal.strMealThumb
+      image_url: meal.strMealThumb,
+      meal_id: meal.idMeal
     }
   })[0]
 

@@ -36,9 +36,9 @@ foodRouter.post('/text-search', wrapRequestHandler(searchFoodController))
 /**
  * Description: Receive details information of a meal
  * Path: /details
- * Method: POST
- * Query: { name: string }
+ * Method: GET
+ * Query: { id: string }
  */
-foodRouter.post('/details', wrapRequestHandler(getDetailsMealController))
+foodRouter.get('/details', wrapRequestHandler(getDetailsMealController))
 
 export default foodRouter

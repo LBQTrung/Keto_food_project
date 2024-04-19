@@ -5,7 +5,7 @@ import { wrapRequestHandler } from '../utils/handlers.js'
 const mediaRouter = Router()
 
 /**
- * Description: Classify food image
+ * Description: Upload image
  * Path: /upload
  * Method: POST
  * Body: form-data {image: example.png}
