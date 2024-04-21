@@ -6,8 +6,10 @@ import foodClassificationModel from '../utils/teachableMachineModel.js'
 import { handleInstructFood, handleOutputModel } from '../utils/foodInstructionModel.js'
 import axios from 'axios'
 import PublicAPI from '../constants/publicAPI.js'
-import { getDetailsIngradients } from '../utils/handleAPIResponses.js'
+import { generateRandomMealsId, getDetailsIngradients, removeNullElements } from '../utils/handleAPIResponses.js'
 import HTTP_STATUS from '../constants/httpStatus.js'
+import pkg from 'lodash'
+const { parseInt } = pkg
 
 export const getFoodController = async (req, res) => {
   const { filename } = req.body
@@ -59,8 +61,6 @@ export const searchFoodController = async (req, res) => {
     return {
       meal_name: meal.strMeal,
       area: meal.strArea,
-      instructions: meal.strInstructions,
-      ingredients: getDetailsIngradients(meal),
       image_url: meal.strMealThumb,
       meal_id: meal.idMeal
     }
@@ -104,5 +104,40 @@ export const getDetailsMealController = async (req, res) => {
   return res.json({
     message: 'Search food successfully',
     result: mealData
+  })
+}
+
+export const getRandomMealsController = async (req, res) => {
+  const quantity = parseInt(req.query.quantity)
+
+  const randomMealsId = generateRandomMealsId(quantity)
+
+  const resultMaybeHaveNull = await Promise.all(
+    randomMealsId.map(async (id) => {
+      const rawResponse = await axios.get(PublicAPI.GET_DETAIL_FOOD_BY_ID, {
+        params: {
+          i: id
+        }
+      })
+      const rawMealsData = rawResponse.data.meals
+      if (rawMealsData) {
+        const mealData = rawMealsData.map((meal) => {
+          return {
+            meal_name: meal.strMeal,
+            area: meal.strArea,
+            image_url: meal.strMealThumb,
+            meal_id: meal.idMeal
+          }
+        })[0]
+        return mealData
+      }
+    })
+  )
+
+  const result = removeNullElements(resultMaybeHaveNull)
+
+  return res.json({
+    message: 'Random meals successfully',
+    result: result
   })
 }

@@ -30,7 +30,7 @@ export const handleUploadImage = async (req, res) => {
   })
   return new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
-      if (err) throw reject(err)
+      if (err) throw err
 
       if (!Boolean(files.image)) {
         return reject(

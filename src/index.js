@@ -4,12 +4,14 @@ import { defaultErrorHandler } from './middlewares/error.middlewares.js'
 import { initUploadsFolder } from './utils/files.js'
 import bodyParser from 'body-parser'
 import mediaRouter from './routes/medias.routes.js'
+import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
