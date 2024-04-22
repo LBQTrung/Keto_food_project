@@ -2,6 +2,7 @@ import { Router } from 'express'
 import {
   getDetailsMealController,
   getFoodController,
+  getMealsByCategoryController,
   getRandomMealsController,
   instructFoodController,
   searchFoodController
@@ -46,16 +47,16 @@ foodRouter.get('/details', wrapRequestHandler(getDetailsMealController))
  * Description: Receive details information of a meal
  * Path: /details
  * Method: GET
- * Query: { id: string }
+ * Query: { quantity: number }
  */
-foodRouter.get('/details', wrapRequestHandler(getDetailsMealController))
+foodRouter.get('/random', wrapRequestHandler(getRandomMealsController))
 
 /**
- * Description: Receive details information of a meal
+ * Description: Get meals by category
  * Path: /details
  * Method: GET
  * Query: { quantity: number }
  */
-foodRouter.get('/random', wrapRequestHandler(getRandomMealsController))
+foodRouter.get('/category', wrapRequestHandler(getMealsByCategoryController))
 
 export default foodRouter

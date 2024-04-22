@@ -141,3 +141,35 @@ export const getRandomMealsController = async (req, res) => {
     result: result
   })
 }
+
+export const getMealsByCategoryController = async (req, res) => {
+  const { category } = req.query
+
+  const rawResponse = await axios.get(PublicAPI.FILTER_BY_CATEGORY, {
+    params: {
+      c: category
+    }
+  })
+  const rawMealsData = rawResponse.data.meals
+
+  if (!rawMealsData) {
+    throw new ErrorWithStatus({
+      message: 'No meal found',
+      status: HTTP_STATUS.NOT_FOUND
+    })
+  }
+
+  const mealsData = rawMealsData.map((meal) => {
+    return {
+      meal_name: meal.strMeal,
+      area: meal.strArea,
+      image_url: meal.strMealThumb,
+      meal_id: meal.idMeal
+    }
+  })
+
+  return res.json({
+    message: 'Get meals successfully',
+    result: mealsData
+  })
+}
