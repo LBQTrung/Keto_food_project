@@ -30,10 +30,10 @@ foodRouter.post('/instruct', wrapRequestHandler(instructFoodController))
 /**
  * Description: Search the ingradients, instruction with text
  * Path: /text-search
- * Method: POST
+ * Method: GET
  * Query: { name: string }
  */
-foodRouter.post('/text-search', wrapRequestHandler(searchFoodController))
+foodRouter.get('/text-search', wrapRequestHandler(searchFoodController))
 
 /**
  * Description: Receive details information of a meal
