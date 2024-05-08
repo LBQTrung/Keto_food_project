@@ -21,13 +21,15 @@ export const handleInstructFood = async (foodName) => {
 }
 
 export const handleOutputModel = (rawOutput) => {
+  console.log(rawOutput)
   /*
   ```json{ ... }/n```
 */
   rawOutput = rawOutput.replaceAll(/\n/g, '')
   rawOutput = rawOutput.replaceAll(/```/g, '')
-  rawOutput = rawOutput.slice(4)
+  rawOutput = rawOutput.replaceAll(/JSON/g, '')
+  rawOutput = rawOutput.replaceAll(/json/g, '')
   const recipeObject = JSON.parse(rawOutput)
-
+  console.log(recipeObject)
   return recipeObject
 }
