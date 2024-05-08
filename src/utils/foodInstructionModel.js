@@ -21,7 +21,6 @@ export const handleInstructFood = async (foodName) => {
 }
 
 export const handleOutputModel = (rawOutput) => {
-  console.log(rawOutput)
   /*
   ```json{ ... }/n```
 */
@@ -30,6 +29,5 @@ export const handleOutputModel = (rawOutput) => {
   rawOutput = rawOutput.replaceAll(/JSON/g, '')
   rawOutput = rawOutput.replaceAll(/json/g, '')
   const recipeObject = JSON.parse(rawOutput)
-  console.log(recipeObject)
   return recipeObject
 }
