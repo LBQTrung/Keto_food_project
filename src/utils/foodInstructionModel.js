@@ -5,8 +5,14 @@ dotenv.config()
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY)
 
 export const handleInstructFood = async (foodName) => {
+  // Config models
+  const generationConfig = {
+    temperature: 0.4,
+    seed: 42
+  }
+
   // For text-only input, use the gemini-pro model
-  const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+  const model = genAI.getGenerativeModel({ model: 'gemini-pro', generationConfig })
 
   const prompt = `Instructions for cooking ${foodName} following these rules:
   - Output: A JSON object with three keys: Ingredients, Cooking Instructions, and Suitable Side Dishes.
